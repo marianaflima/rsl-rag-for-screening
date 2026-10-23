@@ -13,7 +13,8 @@ TRANSFORMATION_PATH = "data/transformation/records-europepmc.json"
 
 def search_europe_pmc(
     query: str,
-    limit_date: int | None = None,
+    first_publication_date: str,
+    last_publication_date: str | None = None,
     page_size: int = 500,
 ) -> None:
     current_date = date.today().isoformat()
@@ -21,7 +22,7 @@ def search_europe_pmc(
     url_query = (
         f"({query}) "
         f"HAS_FREE_FULLTEXT:Y "
-        f"FIRST_PDATE:[{limit_date}-01-01 TO {current_date}]"
+        f"FIRST_PDATE:[{first_publication_date} TO {last_publication_date or current_date}]"
     )
 
     count_per_list = 0
@@ -178,6 +179,7 @@ def format_output() -> None:
             "pub_date": get_publication_date(result),
             "pdf_url": get_best_url(result),
             "article_type": get_article_type_string(result),
+            "provider": "europepmc"
         }
 
         records.append(AcademicRecord(**record))
@@ -188,5 +190,8 @@ def format_output() -> None:
     with open("data/transformation/records-europepmc.json", "w", encoding="utf-8") as file:
         json.dump(records, file, default=json_default, indent=4, ensure_ascii=False)
 
-# search_europe_pmc("autism AND genetic polymorphism", 2026)
-format_output()
+def extract_from_europe_pmc(query: str, lower_limit_date: str, upper_limit_date: str | None = None):
+    search_europe_pmc(query, lower_limit_date, upper_limit_date or None)
+    format_output()
+
+
