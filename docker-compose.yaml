@@ -12,20 +12,20 @@ services:
     ports:
       - "7474:7474"
       - "7687:7687"
-    restart: always
+    restart: no
   qdrant:
     image: "qdrant/qdrant:latest"
     ports:
       - "6333:6333"
     command: ["./qdrant", "--uri", "http://qdrant:6335"]
-    restart: always
+    restart: no
   ollama:
     volumes:
       - ./ollama/ollama:/root/.ollama
     container_name: ollama
     pull_policy: always
     tty: true
-    restart: unless-stopped
+    restart: no
     image: docker.io/ollama/ollama:latest
     ports:
       - 7869:11434
