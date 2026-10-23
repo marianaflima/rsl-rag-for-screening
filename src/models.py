@@ -13,3 +13,4 @@ class AcademicRecord:
     pub_date: date | None
     pdf_url: str | None
     article_type: str | None
+    provider: str
