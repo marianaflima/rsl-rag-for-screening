@@ -18,11 +18,15 @@ def setup_open_alex() -> None:
     pyalex.config.api_key = os.getenv("OPENALEX_API_KEY")
 
 
-def search_open_alex(search_string: str, initial_year: int) -> OpenAlexResponseList:
+def search_open_alex(search_string: str, first_publication_date: str, last_publication_date: str | None = None) -> OpenAlexResponseList:
+    current_year = date.today().year
+    first_pub_year = date.fromisoformat(first_publication_date).year
+    last_pub_year = date.fromisoformat(last_publication_date).year or None
+
     query = (
         Works()
         .search(f"{search_string}")
-        .filter(is_oa=True, publication_year=f"{initial_year}")
+        .filter(is_oa=True, first_publication_year=f"{first_pub_year}", last_publication_year=f"{last_pub_year or current_year}")
     )
 
     response = [record for record in chain(*query.paginate(per_page=100))]
@@ -107,6 +111,7 @@ def format_output() -> None:
             "pub_date": result.get("publication_date", ""),
             "pdf_url": result.get("primary_location", {}).get("pdf_url", ""),
             "article_type": result.get("type", ""),
+            "provider": "openalex"
         }
 
         records.append(AcademicRecord(**record))
@@ -117,7 +122,7 @@ def format_output() -> None:
     with open(file_path, "w", encoding="utf-8") as file:
         json.dump(records, file, default=json_default, indent=4, ensure_ascii=False)
 
-
-# setup_open_alex()
-# search_open_alex("autism AND genetic polymorphism", 2026)
-format_output()
+def extract_from_openalex(query: str, first_pub_date: str, last_pub_date: str | None = None):
+    setup_open_alex()
+    extract_from_openalex(query, first_pub_date, last_pub_date or None)
+    format_output()
