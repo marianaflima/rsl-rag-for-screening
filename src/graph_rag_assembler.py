@@ -150,9 +150,7 @@ def assembly_rag_chain(retriever: EnsembleRetriever):
     return rag_chain
 
 
-def initialize_rory():
-    retriever = assembly_retriever()
-    rag_chain = assembly_rag_chain(retriever=retriever)
+def initialize_rory(chain: RunnableSerializable):
 
     print("=" * 60)
     print(" " * 5, "RORY: Research Orchestration and Review sYstem", " " * 5)
@@ -163,5 +161,13 @@ def initialize_rory():
         if query.lower() in ["exit", "quit"]:
             break
 
-        response = rag_chain.invoke(query)
+        response = chain.invoke(query)
         print(f"\nRORY: {response}")
+
+def assembly_graph_rag():
+    retriever = assembly_retriever()
+    chain = assembly_rag_chain(retriever=retriever)
+    # initialize_rory(chain=chain)
+    return chain
+
+
