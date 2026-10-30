@@ -68,7 +68,7 @@ def get_bm25_retriever() -> BM25Retriever:
     chunked_docs = chunk_documents(docs)
 
     retriever = BM25Retriever.from_documents(chunked_docs)
-    retriever.k = 5
+    retriever.k = 10
 
     return retriever
 
@@ -106,7 +106,7 @@ def assembly_retriever() -> EnsembleRetriever:
     )
 
     vector_retriever = vector_store.as_retriever(
-        search_type="similarity", search_kwargs={"k": 5}
+        search_type="similarity", search_kwargs={"k": 10}
     )
 
     bm25_retriever = get_bm25_retriever()
