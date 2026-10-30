@@ -176,9 +176,10 @@ def assembly_vector_rag():
     chunks = chunk_documents(documents)
     retriever = assembly_retriever(chunks)
 
-    rag_chain = assembly_rag_chain(retriever)
+    chain = assembly_rag_chain(retriever)
 
-    initialize_rory(rag_chain)
+    # initialize_rory(chain)
+    return chain
 
 
 
