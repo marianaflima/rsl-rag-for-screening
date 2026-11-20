@@ -16,9 +16,6 @@ import json
 COLLECTION_NAME = "classic-rag-rsl"
 VECTOR_SIZE = 768
 
-def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
-
 def json_to_markdown_doc(record: AcademicRecord) -> list[Document]:
     conteudo_md = f"""# {record.get('title', 'No title provided')}
 
@@ -33,8 +30,8 @@ def json_to_markdown_doc(record: AcademicRecord) -> list[Document]:
 """
     metadata = {
         "doi": record.get("doi"),
-        "titulo": record.get("title"),
-        "autores": ", ".join(record.get("authors", [])),
+        "title": record.get("title"),
+        "authors": ", ".join(record.get("authors", [])),
         "pub_date": record.get("pub_date"),
         "url": record.get("pdf_url"),
         "provider": record.get("provider")
