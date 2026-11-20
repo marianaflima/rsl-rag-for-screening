@@ -101,7 +101,7 @@ def assembly_retriever() -> EnsembleRetriever:
         node_label="Paper",
         embedding_node_property="embedding",
         index_name="paper_index",
-        text_node_properties=["info"],
+        text_node_properties=["doi", "title", "abstract"],
         retrieval_query=retrieval_query,
     )
 
