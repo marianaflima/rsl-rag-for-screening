@@ -16,6 +16,8 @@ def json_default(obj):
         return obj.isoformat()
     return asdict(obj)
 
+def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
 
 def json_to_markdown_doc(record: AcademicRecord) -> list[Document]:
     conteudo_md = f"""# {record.get('title', 'No title provided')}
