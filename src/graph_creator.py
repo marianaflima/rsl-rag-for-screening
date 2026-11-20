@@ -1,20 +1,10 @@
 from dotenv import load_dotenv
-from langchain_classic.retrievers import EnsembleRetriever, BM25Retriever
-from langchain_core.runnables import RunnablePassthrough, RunnableSerializable
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.tools import tool
-from langchain_openai import ChatOpenAI
-from langchain_ollama import OllamaEmbeddings
-from langchain_neo4j import GraphCypherQAChain, Neo4jGraph
+from langchain_neo4j import Neo4jGraph
 from langchain_neo4j.graphs.graph_document import (
     GraphDocument,
     Node,
     Relationship,
-    Document,
 )
-from langchain_neo4j.vectorstores.neo4j_vector import Neo4jVector
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 import pandas as pd
 
@@ -129,12 +119,11 @@ def create_paper_nodes(papers: pd.DataFrame, nodes: list[Node]) -> None:
         paper_type = row["article_type"]
 
         title = title.replace(".", "")
-        info = f"DOI: {doi}. Title: {title.lower()}. Abstract: {abstract}"
         paper_properties = {
             "doi": doi,
             "paper": title.lower(),
             "pub_date": pub_date,
-            "info": info,
+            "abstract": abstract,
             "provider": provider,
             "type": paper_type,
         }
@@ -154,7 +143,7 @@ def create_nodes(data: list[dict]) -> tuple[list[Node],]:
     nodes = list[Node]()
 
     print("=" * 60)
-    print(" " * 10, "CREATE GRAPH", " " * 10)
+    print(" " * 20, "CREATE GRAPH", " " * 20)
     print("=" * 60)
     print("Artigos existentes:", len(data))
 
