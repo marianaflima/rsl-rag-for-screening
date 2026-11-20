@@ -6,7 +6,10 @@ anyio==4.15.1
 attrs==26.1.0
 certifi==2026.10.19
 charset-normalizer==3.5.2
+contourpy==1.4.0
+cycler==0.12.1
 distro==1.9.0
+fonttools==4.68.0
 frozenlist==1.8.0
 fsspec==2026.7.0
 groq==0.37.1
@@ -26,6 +29,7 @@ jq==1.13.0
 json-repair==0.64.1
 jsonpatch==1.36
 jsonpointer==3.4
+kiwisolver==1.5.1
 langchain==1.4.7
 langchain-classic==1.0.8
 langchain-community==0.4.2
@@ -43,9 +47,11 @@ langgraph-prebuilt==1.1.1
 langgraph-sdk==0.4.8
 langsmith==0.14.12
 logfire-api==5.2.0
+matplotlib==3.11.2
 multidict==7.1.0
 neo4j==6.4.1
 neo4j-graphrag==1.22.0
+networkx==3.7
 numpy==2.5.4
 ollama==0.6.3
 openai==3.41.0
@@ -53,6 +59,7 @@ orjson==3.13.0
 ormsgpack==1.13.0
 packaging==26.3
 pandas==3.1.0
+pillow==13.0.0
 portalocker==4.4.1
 propcache==0.5.4
 protobuf==7.36.2
@@ -61,6 +68,7 @@ pydantic==2.14.1
 pydantic-core==2.50.1
 pydantic-graph==2.60.0
 pydantic-settings==2.16.1
+pyparsing==3.3.3
 pypdf==6.21.2
 python-dateutil==3.0.0
 python-dotenv==1.2.4
